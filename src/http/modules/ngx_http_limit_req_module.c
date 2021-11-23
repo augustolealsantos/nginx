@@ -267,10 +267,11 @@ ngx_http_limit_req_handler(ngx_http_request_t *r)
 
         if (rc == NGX_BUSY) {
             ngx_log_error(lrcf->limit_log_level, r->connection->log, 0,
-                        "limiting requests%s, excess: %ui.%03ui by zone \"%V\"",
+                        "limiting requests%s, excess: %ui.%03ui by zone \"%V\" key[\"%V\"]",
                         lrcf->dry_run ? ", dry run" : "",
                         excess / 1000, excess % 1000,
-                        &limit->shm_zone->shm.name);
+                        &limit->shm_zone->shm.name,
+                        &ctx->key.value);
         }
 
         ngx_http_limit_req_unlock(limits, n);
