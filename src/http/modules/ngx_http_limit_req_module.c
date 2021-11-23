@@ -299,9 +299,9 @@ ngx_http_limit_req_handler(ngx_http_request_t *r)
     }
 
     ngx_log_error(lrcf->delay_log_level, r->connection->log, 0,
-                  "delaying request%s, excess: %ui.%03ui, by zone \"%V\"",
+                  "delaying request%s, excess: %ui.%03ui, by zone \"%V\" key[\"%V\"]",
                   lrcf->dry_run ? ", dry run" : "",
-                  excess / 1000, excess % 1000, &limit->shm_zone->shm.name);
+                  excess / 1000, excess % 1000, &limit->shm_zone->shm.name, &ctx->key.value);
 
     if (lrcf->dry_run) {
         r->main->limit_req_status = NGX_HTTP_LIMIT_REQ_DELAYED_DRY_RUN;
