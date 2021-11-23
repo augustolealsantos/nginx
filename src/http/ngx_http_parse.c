@@ -1010,8 +1010,8 @@ ngx_http_parse_header_line(ngx_http_request_t *r, ngx_buf_t *b,
                 r->header_end = p;
                 goto done;
             case '\0':
-                r->header_end = p;
-                return NGX_HTTP_PARSE_INVALID_HEADER;
+                r->invalid_header = 1;
+                break;
             }
             break;
 
@@ -1026,8 +1026,8 @@ ngx_http_parse_header_line(ngx_http_request_t *r, ngx_buf_t *b,
             case LF:
                 goto done;
             case '\0':
-                r->header_end = p;
-                return NGX_HTTP_PARSE_INVALID_HEADER;
+                r->invalid_header = 1;
+                break;
             default:
                 state = sw_value;
                 break;
